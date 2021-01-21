@@ -1,7 +1,8 @@
 // @ts-ignore
 import faker from 'faker'
+import {IMarkerType} from "../API/CustomMap"
 
-export class UserModel {
+export class UserModel implements IMarkerType {
     //: - ©Member-PROPERTIES
     // #™━━━━━━━━━━━━━━━━━━━━━━━━
     name: string
@@ -10,10 +11,10 @@ export class UserModel {
         lat: number,
         lng: number
     }
-
     // #™━━━━━━━━━━━━━━━━━━━━━━━━
 
-    /** ™- Constructor */
+    /**| ™- Constructor |*/
+    // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     constructor() {
         /** ™- Destructuring name * address */
         const {name: whichName, address: {latitude, longitude}} = faker
@@ -27,6 +28,15 @@ export class UserModel {
         /// - END OF: location
     }
     /// - END OF: constructor
+    // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    // #━━━━━━━━━━━━━━━ Method conforming to IMarkerType ━━━━━━━━━━━━━━━
+
+    markerContent(): string {
+        //..........
+        return `<p><strong>User Name: ${this.name}</p>`
+    }
+    /// - END OF: markerContent
 }
 /** - END OF: @UserModel */
 // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -1,7 +1,8 @@
 // @ts-ignore
 import faker from 'faker'
+import {IMarkerType} from "../API/CustomMap"
 
-export class CompanyModel {
+export class CompanyModel implements IMarkerType {
     //: - ©Member-PROPERTIES
     // #™━━━━━━━━━━━━━━━━━━━━━━━━
     companyName: string
@@ -14,8 +15,8 @@ export class CompanyModel {
     // #™━━━━━━━━━━━━━━━━━━━━━━━━
 
     /** ™- Constructor */
+    // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     constructor() {
-
         //..........
         /** ™- Destructuring */
         const {name: whichName, address: {latitude, longitude}} = faker
@@ -31,7 +32,18 @@ export class CompanyModel {
         }
         /// - END OF: location
     }
-
     /// - END OF: constructor
+    // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    // #━━━━━━━━━━━━━━━ Method conforming to IMarkerType ━━━━━━━━━━━━━━━
+
+    markerContent(): string {
+        //..........
+        return `<div>
+                    <h1>Company Name: ${this.companyName}</h1> 
+                    <h3>Company Phrase:</h3><p><strong>${this.catchPhrase}</p>
+                </div>`
+    }
+    /// - END OF: markerContent
 }
 /** - END OF: @CompanyModel */

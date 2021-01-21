@@ -100431,7 +100431,8 @@ var UserModel =
 function () {
   // #™━━━━━━━━━━━━━━━━━━━━━━━━
 
-  /** ™- Constructor */
+  /**| ™- Constructor |*/
+  // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   function UserModel() {
     /** ™- Destructuring name * address */
     var whichName = faker_1.default.name,
@@ -100444,7 +100445,15 @@ function () {
       lat: parseFloat(latitude()),
       lng: parseFloat(longitude())
     }; /// - END OF: location
-  }
+  } /// - END OF: constructor
+  // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // #━━━━━━━━━━━━━━━ Method conforming to IMarkerType ━━━━━━━━━━━━━━━
+
+
+  UserModel.prototype.markerContent = function () {
+    //..........
+    return "<p><strong>User Name: " + this.name + "</p>";
+  };
 
   return UserModel;
 }();
@@ -100474,6 +100483,7 @@ function () {
   // #™━━━━━━━━━━━━━━━━━━━━━━━━
 
   /** ™- Constructor */
+  // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   function CompanyModel() {
     //..........
 
@@ -100493,7 +100503,15 @@ function () {
       lat: parseFloat(latitude()),
       lng: parseFloat(longitude())
     }; /// - END OF: location
-  }
+  } /// - END OF: constructor
+  // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // #━━━━━━━━━━━━━━━ Method conforming to IMarkerType ━━━━━━━━━━━━━━━
+
+
+  CompanyModel.prototype.markerContent = function () {
+    //..........
+    return "<div>\n                    <h1>Company Name: " + this.companyName + "</h1> \n                    <h3>Company Phrase:</h3><p><strong>" + this.catchPhrase + "</p>\n                </div>";
+  };
 
   return CompanyModel;
 }();
@@ -100507,6 +100525,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.CustomMap = void 0; // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// noinspection JSDeprecatedSymbols
 
 var CustomMap =
 /** @class */
@@ -100514,6 +100533,7 @@ function () {
   // #™━━━━━━━━━━━━━━━━━━━━━━━━
 
   /** ™- Constructor */
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   function CustomMap(divID) {
     //..........
     this.googleMap = new google.maps.Map(document.getElementById(divID), {
@@ -100526,7 +100546,8 @@ function () {
       }
     });
   } /// - END OF: constructor
-  // #............ Methods ............
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // #━━━━━━━━━━━━━━━ methods ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
   CustomMap.prototype.addMarker = function (marker) {
@@ -100535,7 +100556,7 @@ function () {
         lat = _a.lat,
         lng = _a.lng;
     var googleMap = this.googleMap;
-    return new google.maps.Marker({
+    var markerEvent = new google.maps.Marker({
       //..........
       map: googleMap,
       position: {
@@ -100543,6 +100564,31 @@ function () {
         lat: lat,
         lng: lng
       }
+    }); /// - END OF: markerEvent
+
+    this.infoWindowContent(marker, markerEvent);
+    return markerEvent;
+  }; /// - END OF METHOD: addMarker
+  /// -™ Helper function for addMarker
+
+
+  CustomMap.prototype.infoWindowContent = function (marker, markerEvent) {
+    var _this = this;
+    /**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     * @EventListener:
+     * • Adding an event listener for when the
+     *   marker is clicked. Will display a popup
+     *   with the `content` added to the infoWindow
+     **━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+
+    markerEvent.addListener('click', function () {
+      //___________
+      var infoWindow = new google.maps.InfoWindow({
+        //..........
+        content: marker.markerContent()
+      });
+      infoWindow.open(_this.googleMap, markerEvent);
     });
   };
 
@@ -100551,7 +100597,7 @@ function () {
 
 exports.CustomMap = CustomMap;
 /** - END OF: @CustomMap */
-},{}],"src/app/HelperFunctions.ts":[function(require,module,exports) {
+},{}],"src/API/HelperFunctions.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100581,7 +100627,7 @@ var CompanyModel_1 = require("../models/CompanyModel");
 
 var CustomMap_1 = require("../API/CustomMap");
 
-var HelperFunctions_1 = require("./HelperFunctions");
+var HelperFunctions_1 = require("../API/HelperFunctions");
 
 function main() {
   // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -100595,7 +100641,7 @@ function main() {
 
 
 main();
-},{"../models/UserModel":"src/models/UserModel.ts","../models/CompanyModel":"src/models/CompanyModel.ts","../API/CustomMap":"src/API/CustomMap.ts","./HelperFunctions":"src/app/HelperFunctions.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../models/UserModel":"src/models/UserModel.ts","../models/CompanyModel":"src/models/CompanyModel.ts","../API/CustomMap":"src/API/CustomMap.ts","../API/HelperFunctions":"src/API/HelperFunctions.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

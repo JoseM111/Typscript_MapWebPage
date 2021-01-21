@@ -1,4 +1,4 @@
-import {CustomMap, GoogleMapMarker, IMarkerType} from "../API/CustomMap"
+import {CustomMap, GoogleMapMarker, IMarkerType} from "./CustomMap"
 
 // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

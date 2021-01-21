@@ -2,7 +2,7 @@
 import {UserModel} from "../models/UserModel"
 import {CompanyModel} from "../models/CompanyModel"
 import {CustomMap} from "../API/CustomMap"
-import {addOnMap} from "./HelperFunctions"
+import {addOnMap} from "../API/HelperFunctions"
 
 function main()
 {

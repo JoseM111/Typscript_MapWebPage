@@ -6,6 +6,7 @@ var faker_1 = require("faker");
 var CompanyModel = /** @class */ (function () {
     // #™━━━━━━━━━━━━━━━━━━━━━━━━
     /** ™- Constructor */
+    // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     function CompanyModel() {
         //..........
         /** ™- Destructuring */
@@ -21,6 +22,13 @@ var CompanyModel = /** @class */ (function () {
         };
         /// - END OF: location
     }
+    /// - END OF: constructor
+    // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // #━━━━━━━━━━━━━━━ Method conforming to IMarkerType ━━━━━━━━━━━━━━━
+    CompanyModel.prototype.markerContent = function () {
+        //..........
+        return "<div>\n                    <h1>Company Name: " + this.companyName + "</h1> \n                    <h3>Company Phrase:</h3><p><strong>" + this.catchPhrase + "</p>\n                </div>";
+    };
     return CompanyModel;
 }());
 exports.CompanyModel = CompanyModel;

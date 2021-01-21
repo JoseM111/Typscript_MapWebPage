@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var UserModel_1 = require("../models/UserModel");
 var CompanyModel_1 = require("../models/CompanyModel");
 var CustomMap_1 = require("../API/CustomMap");
-var HelperFunctions_1 = require("./HelperFunctions");
+var HelperFunctions_1 = require("../API/HelperFunctions");
 function main() {
     // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // section Google-API

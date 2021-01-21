@@ -7,14 +7,20 @@ export type GoogleMapMarker = google.maps.Marker
 // section interface IMarkerType
 // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  export interface IMarkerType {
-    //..........
-    location: {
-        lat: number,
-        lng: number
-    }
+     //: - ©Global-PROPERTIES
+     // #™━━━━━━━━━━━━━━━━━━━━━━━━
+     location: {
+         lat: number,
+         lng: number
+     }
+     // #™━━━━━━━━━━━━━━━━━━━━━━━━
+     /// -™ Function to be implemented
+     markerContent(): string
 }
 // #™━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+
+// noinspection JSDeprecatedSymbols
 export class CustomMap {
     //: - ©Member-PROPERTIES
     // #™━━━━━━━━━━━━━━━━━━━━━━━━
@@ -22,6 +28,7 @@ export class CustomMap {
     // #™━━━━━━━━━━━━━━━━━━━━━━━━
 
     /** ™- Constructor */
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     constructor(divID: string) {
         //..........
         this.googleMap = new google.maps.Map(
@@ -36,15 +43,16 @@ export class CustomMap {
             })
     }
     /// - END OF: constructor
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-    // #............ Methods ............
+    // #━━━━━━━━━━━━━━━ methods ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     addMarker(marker: IMarkerType): GoogleMapMarker {
         /// -™ Destructuring
         const { lat, lng } = marker.location
         const { googleMap } = this
 
-        return new google.maps.Marker({
+        const markerEvent = new google.maps.Marker({
             //..........
             map: googleMap,
             position: {
@@ -53,21 +61,31 @@ export class CustomMap {
                 lng: lng
             }
         })
-    }
-    /// - END OF: addMarker
+        /// - END OF: markerEvent
 
-    // addCompanyMarker(company: CompanyModel): GoogleMapMarker {
-    //     //..........
-    //     return new google.maps.Marker({
-    //         //..........
-    //         map: this.googleMap,
-    //         position: {
-    //             //..........
-    //             lat: company.location.lat,
-    //             lng: company.location.lng
-    //         }
-    //     })
-    // }
-    // /// - END OF: addCompanyMarker
+        this.infoWindowContent(marker, markerEvent)
+        return markerEvent
+    }
+    /// - END OF METHOD: addMarker
+
+    /// -™ Helper function for addMarker
+    private infoWindowContent(marker: IMarkerType, markerEvent: GoogleMapMarker) {
+        /**━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         * @EventListener:
+         * • Adding an event listener for when the
+         *   marker is clicked. Will display a popup
+         *   with the `content` added to the infoWindow
+         **━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+        markerEvent.addListener('click', () => {
+            //___________
+            const infoWindow = new google.maps.InfoWindow({
+                //..........
+                content: marker.markerContent()
+            })
+
+            infoWindow.open(this.googleMap, markerEvent)
+        })
+    }
+    /// - END OF: infoWindowContent
 }
 /** - END OF: @CustomMap */
